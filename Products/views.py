@@ -120,13 +120,13 @@ class ProductReview_pk(APIView):
         return JsonResponse({'error': 'Product not found', 'code':204}, status=status.HTTP_204_NO_CONTENT)
 
 
-    # def put(self, request, pk):
-    #     review = self.get_object(pk)
-    #     serializer = ReviewProductSerializer(review, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonResponse({'data': serializer.data, 'code':200}, status=status.HTTP_200_OK)
-    #     return JsonResponse({'error': serializer.errors, 'code':400}, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, pk):
+        review = self.get_object(pk)
+        serializer = ReviewProductSerializer(review, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'data': serializer.data, 'code':200}, status=status.HTTP_200_OK)
+        return JsonResponse({'error': serializer.errors, 'code':400}, status=status.HTTP_400_BAD_REQUEST)
 
     
     # def delete(self, request, pk):

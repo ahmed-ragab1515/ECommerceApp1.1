@@ -1,7 +1,7 @@
 from .models import Order
-from .serializers import OrderSerializer
+from .serializers import OrderSerializer, ShoppingCartSerializer
 from rest_framework import status
-from rest_framework.response import Response
+# from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import JsonResponse
 
@@ -18,8 +18,19 @@ class OrderAPIView(APIView):
         
 
 
+    # def post(self, request):
+    #     serializer = OrderSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonResponse({'data': serializer.data, 'code':200}, status=status.HTTP_200_OK)
+    #     return JsonResponse({'error': serializer.errors, 'code':400}, status=status.HTTP_400_BAD_REQUEST)
+    
+
     def post(self, request):
-        serializer = OrderSerializer(data=request.data)
+        if request.data.get('status') == 'pending':
+            serializer = ShoppingCartSerializer(data=request.data)
+        elif request.data.get('status') == 'shipped' or 'delivered':
+            serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({'data': serializer.data, 'code':200}, status=status.HTTP_200_OK)

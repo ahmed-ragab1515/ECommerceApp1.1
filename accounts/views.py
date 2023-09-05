@@ -5,7 +5,7 @@ from rest_framework import status
 from django.contrib.auth import authenticate, login
 import json
 from rest_framework.views import APIView
-from .models import CustomUser
+from django.contrib.auth.hashers import make_password
 
 class UserRegistrationView(APIView):
     @csrf_exempt  
@@ -15,9 +15,11 @@ class UserRegistrationView(APIView):
         password = data.get('password')
         serializer = CustomUserSerializer(data=data)
         if serializer.is_valid():
+            # password = serializer.validated_data.get('password')
+            # serializer.validated_data['password']=make_password(password)
             ###########
-            # user = serializer.save()
-            user = CustomUser.objects.create_user(username=username, password=password)
+            user = serializer.save()
+            # user = CustomUser.objects.create_user(username=username, password=password)
             ###########
             # user = serializer.save(commit=False)
             # user.set_password(data.password)

@@ -4,8 +4,8 @@ from .models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        # fields = ('id', 'username','password', 'role', 'email2', 'email') 
-        fields = ('__all__') 
+        fields = ('id', 'username','password', 'role', 'email', 'is_staff', 'is_superuser') 
+        # fields = ('__all__') 
 
 
 # from django.contrib.auth.forms import UserCreationForm

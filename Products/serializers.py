@@ -14,4 +14,4 @@ class AllProductSerializer (serializers.ModelSerializer):
 class ReviewProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review_Product
-        fields = '__all__'
+        fields = ('__all__')

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_@i8&kcxs3bfxrxmx2=2=)3ic**srxjjp)mp^i)6*pij_&)5fi'
+SECRET_KEY = 'django-insecure-&ygo7j@fq9+ougz19mw0!1y@c%dd3yg$#=#22!je_hq8&uvf2t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,12 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',
     'accounts',
     'Products',
     'Orders',
 ]
 
+# AUTH_USER_MODEL = 'accounts.CustomUser'  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,21 +55,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-REST_FRAMEWORK = {
-
-    # 'DEFAULT_PERMISSION_CLASSES': (
-
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
-
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-    # 'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.BasicAuthentication',
-]
-}
-
-# AUTH_USER_MODEL = 'accounts.CustomUser'  
 
 ROOT_URLCONF = 'Project.urls'
 
@@ -120,18 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# PASSWORD_HASHERS = [
-#     'django.contrib.auth.hashers.Argon2PasswordHasher',
-#     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-#     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-#     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-#     'django.contrib.auth.hashers.BCryptPasswordHasher',
-# ]
-# PASSWORD_HASHERS = [
-#     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-#     # ...
-# ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -149,6 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
