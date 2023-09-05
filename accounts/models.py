@@ -1,7 +1,7 @@
-from typing import Iterable, Optional
 from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth import get_user_model
 
 # # Define the names of the groups
 # GROUP_ADMIN = 'Admins Group'
@@ -33,6 +33,18 @@ class CustomUser(User):
 
     def __str__(self):
         return f"{self.username}"
+    
+    # def change_password(self, username, password, new_password):
+    #     User = get_user_model()
+    #     try:
+    #         user = User.objects.get(username=username)
+    #         if check_password(password, user.password):
+    #             user.set_password(new_password)
+    #             user.save()
+    #         else:
+    #             raise ValueError("Old password does not match.")
+    #     except User.DoesNotExist:
+    #         raise ValueError("User not found.")
 
 
 # class Customer(User):

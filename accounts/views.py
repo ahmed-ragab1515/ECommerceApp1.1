@@ -5,7 +5,8 @@ from rest_framework import status
 from django.contrib.auth import authenticate, login
 import json
 from rest_framework.views import APIView
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import get_user_model
 
 class UserRegistrationView(APIView):
     @csrf_exempt  
@@ -53,6 +54,31 @@ class UserLoginView(APIView):
 
     def get(self, request):
         return JsonResponse({'message': 'Invalid request method', 'code': 405}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class ChangePasswordView(APIView):
+
+    def post(self, request):
+        data = request.data
+        username = data.get('username')
+        password = data.get('password')
+        new_password = data.get('new_password')
+
+        User = get_user_model()
+
+        try:
+            user = User.objects.get(username=username)
+            if check_password(password, user.password):
+                user.set_password(new_password)
+                user.save()
+                return JsonResponse({'message': 'Password changed successfully', 'code': 200}, status=status.HTTP_200_OK)
+            else:
+                return JsonResponse({'error': 'Old password is incorrect', 'code': 401}, status=status.HTTP_401_UNAUTHORIZED)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found', 'code': 401}, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get(self, request):
+        return JsonResponse({'message': 'GET request to change password not supported', 'code': 405}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 #########################( Customers )#############################
 
