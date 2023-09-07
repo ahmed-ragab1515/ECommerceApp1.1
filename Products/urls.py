@@ -13,9 +13,8 @@ urlpatterns = [
     path('search_products/', ProductSearchAPIView.as_view(), name='search_product'),
 
 
-
-    path('add_review/', ProductReviewListView.as_view(), name='add_review'),
-    path('reviews/', ProductReviewListView.as_view(), name='review_product'),
-    path('reviews/<int:pk>/', ProductReview_pk.as_view(), name='review-product-detail'),
+    # path('add_review/', ProductReviewListView.as_view(), name='add_review'),
+    # path('reviews/', ProductReviewListView.as_view(), name='review_product'),
+    # path('reviews/<int:pk>/', ProductReview_pk.as_view(), name='review-product-detail'),
 
 ]
